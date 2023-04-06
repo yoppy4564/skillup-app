@@ -46,7 +46,8 @@ const Skill = () => {
   const selectedSkills = skillsData[tabIndex].skills;
 
   return (
-    <Box justifyItems="center">
+    <Box display="flex" justifyContent="center" alignItems="center">
+
     <Card>
       <CardContent>
         <Box sx={{ mb: 2 }}>

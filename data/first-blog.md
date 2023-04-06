@@ -3,20 +3,81 @@ id: 1
 uid: 1
 title: "1つ目の記事"
 date: "2021-03-01"
-image: /images/pic1.jpg
 excerpt: Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
 ---
 
-これが1つ目のブログ記事です。
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse maximus est tellus, eget porta leo tristique a. Donec hendrerit massa leo, id tempus dolor vulputate et. Pellentesque consectetur dolor placerat euismod pellentesque. Integer scelerisque, augue ac ullamcorper sodales, neque lectus tristique turpis, id luctus lectus lorem eu tortor. In imperdiet semper accumsan. Etiam pellentesque libero et scelerisque vehicula. Nam quis justo mi. Cras erat ex, rhoncus id blandit id, commodo ac leo. In hac habitasse platea dictumst. Pellentesque id sapien quis justo dapibus ornare. Proin scelerisque quam quis sapien porttitor vehicula. Fusce a vehicula sem, at rhoncus augue. Mauris eros massa, tincidunt et lobortis sed, tempor vitae ligula.
+データベースから取り出した要素の共有部分だけを抜き出して、共通部分を第一要素とし、残りの要素を第一要素の配下に配置する際はバックエンドでどのような処理を行えば良い？
 
-Etiam bibendum ex finibus, aliquam turpis eu, laoreet neque. Proin gravida pretium pharetra. Mauris elementum enim ac nisl commodo facilisis. Nullam varius felis eget pretium vestibulum. Donec sed diam dolor. Duis blandit nunc varius rutrum ornare. Sed nec ullamcorper magna. Etiam consequat, lorem at laoreet suscipit, ex lacus molestie nibh, vestibulum placerat lorem nulla vitae neque. Vestibulum est tortor, vehicula a mi non, bibendum maximus erat.
+共有部分だけを抜き出すためには、文字列操作関数を使用することができます。具体的には、以下の手順で処理を行うことができます。
 
-Vivamus et venenatis sapien. Cras commodo semper purus, eget auctor lorem condimentum et. Pellentesque euismod, urna sollicitudin consequat luctus, elit ante bibendum ipsum, sit amet fermentum dolor tortor id odio. In dapibus convallis ultricies. Sed nec nulla id lectus finibus viverra a at nulla. Integer pharetra velit sit amet neque varius, eget mollis lacus fermentum. Phasellus libero neque, ultrices sed erat non, maximus accumsan tortor. Aliquam vel est nec nibh maximus blandit. Nulla maximus accumsan libero in rutrum. Vestibulum at metus eget augue auctor sollicitudin. Aenean sit amet ante accumsan, placerat libero sollicitudin, tempus tortor. Sed nec commodo turpis, sit amet ullamcorper nisi. Phasellus varius blandit ipsum vitae tincidunt. Etiam feugiat condimentum odio, nec vulputate est pretium in.
+データベースから取り出した要素を、文字列として扱います。
+取り出した要素の中から共通部分を検出し、切り出します。共通部分を検出する方法は、文字列の一致する部分を検索することで行うことができます。例えば、正規表現を使用することで、共通部分を検索することができます。
+共通部分を第一要素とし、残りの要素を第一要素の配下に配置するために、新しいオブジェクトを作成します。
+新しいオブジェクトの第一要素に、共通部分を設定します。
+新しいオブジェクトの第二要素に、残りの要素を配列として設定します。
+このように処理を行うことで、バックエンドで共通部分だけを抜き出し、新しいオブジェクトを作成して処理することができます。具体的な実装方法については、使用するプログラミング言語やフレームワークによって異なりますが、上記の手順を参考にすることで実装することができます。
 
-Ut fringilla sed tortor ac lobortis. Praesent sit amet dui interdum, sagittis turpis ut, efficitur urna. Cras vel arcu efficitur, mollis est congue, malesuada orci. Donec bibendum ultrices efficitur. Pellentesque in mi sit amet odio maximus aliquam sit amet dignissim urna. Nulla laoreet varius eros, a imperdiet enim rhoncus sed. Aliquam erat volutpat. Cras a odio at purus faucibus blandit eu pretium massa. Morbi a ex et justo tincidunt molestie non vel magna. Proin vitae metus luctus, iaculis nulla et, maximus nibh.
 
-Mauris mollis, eros in scelerisque consequat, leo orci molestie diam, vel convallis massa erat porttitor enim. Maecenas facilisis condimentum convallis. Suspendisse porttitor turpis ut neque consectetur hendrerit. Etiam ut eleifend risus. Quisque ultricies a turpis ac accumsan. Nunc consequat bibendum nulla ac commodo. Donec aliquam semper tortor, a mollis odio tincidunt nec. Integer facilisis felis vitae volutpat vehicula.
 
-Phasellus feugiat facilisis rhoncus. Pellentesque sed augue varius, porttitor eros vel, sollicitudin nisi. Fusce rhoncus justo a commodo placerat. Phasellus porta tempor interdum. Praesent massa tellus, hendrerit in velit eget, rhoncus vestibulum tellus. Nullam vestibulum tellus a placerat pharetra. Morbi sodales arcu urna, in varius libero commodo pharetra. Suspendisse in tristique sapien. Curabitur eu pulvinar nibh. Morbi pulvinar id lacus non vulputate. Aenean a lorem sit amet tortor tempus condimentum. Praesent ultricies quis magna non pellentesque. Aenean tristique nulla eu nibh rutrum iaculis. Suspendisse ultricies vel dolor nec lobortis. Aenean semper nisi lorem, sed mattis nibh iaculis sit amet. Sed vitae egestas velit.
+ありがとうございます。PostgreSQLを使用する場合、文字列操作関数としては、以下のような関数が利用できます。
 
+SUBSTRING: 文字列の一部分を切り出します。
+POSITION: 指定した文字列が、別の文字列の中で最初に出現する位置を返します。
+LEFT: 文字列の左側から指定した数の文字を抽出します。
+RIGHT: 文字列の右側から指定した数の文字を抽出します。
+LENGTH: 文字列の長さを返します。
+これらの関数を組み合わせて、共通部分を抽出することができます。具体的には、以下のようなSQLクエリを使用することができます。
+```
+sql
+Copy code
+SELECT 
+  SUBSTRING(column_name FROM 1 FOR POSITION('common_string' IN column_name)-1) AS common_string,
+  ARRAY_AGG(SUBSTRING(column_name FROM POSITION('common_string' IN column_name) + LENGTH('common_string'))) AS remaining_strings
+FROM table_name
+WHERE column_name LIKE '%common_string%';
+```
+上記のクエリでは、指定した列(column_name)の中から、共通部分(common_string)を検索しています。共通部分は、SUBSTRING関数とPOSITION関数を組み合わせて抽出されます。また、残りの要素は、ARRAY_AGG関数を使用して配列にまとめられます。
+
+クエリのWHERE句では、LIKE演算子を使用して、指定した文字列(common_string)が列(column_name)に含まれる行だけを抽出しています。
+
+以上のように、PostgreSQLでは、文字列操作関数を使用して共通部分を抽出し、新しいオブジェクトを作成することができます。
+
+
+
+
+
+ありがとうございます。Pythonを使用する場合、PostgreSQLに接続するためには、まず psycopg2 ライブラリをインストールする必要があります。次に、以下のようなPythonコードを使用して、共通部分を抽出することができます。
+```
+python
+Copy code
+import psycopg2
+
+# データベースに接続する
+conn = psycopg2.connect(database="your_database", user="your_username", password="your_password", host="your_host", port="your_port")
+cur = conn.cursor()
+
+# 共通部分を抽出するためのSQLクエリを定義する
+sql_query = """
+SELECT 
+  SUBSTRING(column_name FROM 1 FOR POSITION('common_string' IN column_name)-1) AS common_string,
+  ARRAY_AGG(SUBSTRING(column_name FROM POSITION('common_string' IN column_name) + LENGTH('common_string'))) AS remaining_strings
+FROM table_name
+WHERE column_name LIKE '%common_string%';
+"""
+
+# SQLクエリを実行する
+cur.execute(sql_query)
+
+# 結果を取得する
+result = cur.fetchall()
+
+# 結果を表示する
+print(result)
+
+# データベースから切断する
+cur.close()
+conn.close()
+```
+上記のコードでは、psycopg2ライブラリを使用して、PostgreSQLに接続しています。また、共通部分を抽出するためのSQLクエリを定義し、execute()メソッドを使用してクエリを実行しています。最後に、fetchall()メソッドを使用して、クエリの結果を取得しています。
+
+また、上記のクエリで使用しているSUBSTRING関数やARRAY_AGG関数は、PostgreSQLに組み込まれた関数なので、Pythonから実行することができます。

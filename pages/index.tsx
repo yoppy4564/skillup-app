@@ -27,7 +27,7 @@ const Index = () => {
                         <h3>Unleash Your Potential </h3>
                 </Box>
             </Box>
-            <Introduce imageSrc="/images/Yoshiaki.png" imageAlt="alt text" text={YoshiakiText} heading="滑って捌けるエンジニア" />
+            <Introduce imageSrc="/images/Yoshiaki.png" imageAlt="introduce image" text={YoshiakiText} heading="滑って捌けるエンジニア" />
             <Skill />
         </Layout>
     )
