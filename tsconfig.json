@@ -17,7 +17,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "http://localhost:3000",
     "paths": {
       "@/components/*": [
         "./components/*"
@@ -30,8 +30,12 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "next.config.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.ts",
+    "types/**/*.tsx",
+    "types/components.tsx"
   ],
   "exclude": [
     "node_modules"

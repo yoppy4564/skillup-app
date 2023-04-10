@@ -8,42 +8,21 @@ import {
   Tabs,
   Typography,
 } from '@mui/material';
+import { SkillProps } from '../types/components';
+import React from 'react';
 
-const skillsData = [
-  {
-    category: 'Frontend',
-    skills: [
-      { name: 'React', level: 80 },
-      { name: 'Next.js', level: 70 },
-      { name: 'Vue.js', level: 50 },
-    ],
-  },
-  {
-    category: 'Backend',
-    skills: [
-      { name: 'Node.js', level: 80 },
-      { name: 'Express.js', level: 70 },
-      { name: 'Python', level: 50 },
-    ],
-  },
-  {
-    category: 'Database',
-    skills: [
-      { name: 'MySQL', level: 80 },
-      { name: 'PostgreSQL', level: 70 },
-      { name: 'MongoDB', level: 50 },
-    ],
-  },
-];
-
-const Skill = () => {
+const SkillCard: React.FC<SkillProps> = ({ skillsData }) => {
   const [tabIndex, setTabIndex] = useState(0);
+  const selectedSkills = skillsData?.[tabIndex]?.skills ?? [];
+
 
   const handleChangeTab = (event, newValue) => {
     setTabIndex(newValue);
   };
+  
 
-  const selectedSkills = skillsData[tabIndex].skills;
+  // const selectedSkills = skillsData[tabIndex].skills;
+
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center">
@@ -102,4 +81,4 @@ const Skill = () => {
   );
 };
 
-export default Skill;
+export default SkillCard;

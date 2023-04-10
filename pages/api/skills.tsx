@@ -1,4 +1,4 @@
-const skills = [
+const skillsData = [
     {
       category: 'Frontend',
       skills: [
@@ -26,5 +26,5 @@ const skills = [
   ];
 
 export default function server(req, res){
-    res.status(200).json(skills)
+    res.status(200).json(skillsData)
 }
