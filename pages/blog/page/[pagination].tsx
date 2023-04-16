@@ -1,3 +1,4 @@
+import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Layout from "../../../components/layout"
@@ -52,7 +53,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) { 
     const { orderedBlogs, numberPages } = await getAllBlogs() 
 
-    const currentPage = context.params.pagination
+    const currentPage = Number(context.params.pagination)
     const limitedBlogs = orderedBlogs.slice((currentPage -1) * blogsPerPage, currentPage * blogsPerPage) 
     
     return {            
@@ -61,4 +62,4 @@ export async function getStaticProps(context) {
             numberPages: numberPages
         },      
     }                   
-} 
+}

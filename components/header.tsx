@@ -80,9 +80,9 @@ const Header = () => {
                 display: { xs: 'block', md: 'inline-flex' },
               }}
             >
-              {pages.map((page) => (
-                <Link href={`/${page}`} passHref>
-                  <MenuItem key={page}>
+              {pages.map((page, index) => (
+                <Link href={`/${page}`} key={index} passHref>
+                  <MenuItem>
                     <Typography textAlign="center" color="black">{page}</Typography>
                   </MenuItem>
                 </Link>
@@ -109,12 +109,9 @@ const Header = () => {
             Skill-App
           </Typography>
           <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link href={`/${page}`} passHref>
-                <Button
-                  key={page}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
-                >
+            {pages.map((page, index) => (
+              <Link href={`/${page}`} key={page} passHref>
+                <Button sx={{ my: 2, color: 'black', display: 'block' }}>
                   {page}
                 </Button>
               </Link>

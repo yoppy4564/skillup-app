@@ -1,7 +1,8 @@
+import React from 'react'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import Layout from "../../components/layout"
-import Seo from "../../components/seo"　
+import Seo from "../../components/seo"
 import PrevNext from "../../components/prevNext"
 import { getAllBlogs, getSingleBlog } from "../../utils/mdQueries"
 

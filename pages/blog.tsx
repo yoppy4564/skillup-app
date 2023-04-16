@@ -1,51 +1,58 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import Layout from "../components/layout"
-import Seo from "../components/seo"
-import Pagination from "../components/pagination"
-import { getAllBlogs, blogsPerPage } from "../utils/mdQueries"
+import matter, {GrayMatterFile} from "gray-matter"
+import Link from "next/link"
+import { GetStaticProps } from "next";
 
-const Blog = (props) => {
-  return (
-      <Layout>
-        <Seo title="ブログ" description="これはブログページです" /> 
-        <div className="wrapper">
-            <div className="container">
-              <h1>Blog</h1>
-              <p>エンジニアの日常生活をお届けします</p>
-              {props.blogs.map((blog, index) => {
-                  return(
-                      <div key={index} className="blogCard">                            
-                          <div className="cardContainer">
-                              <h3>{blog.frontmatter.title}</h3>
-                              <p>{blog.frontmatter.excerpt}</p>
-                              <p>{blog.frontmatter.date}</p>
-                              <Link href={`/blog/${blog.slug}`}>Read More</Link>
-                          </div>
-                          <div className="blogImg">
-                              <Image src={blog.frontmatter.image} alt="card-image" height={300} width={1000} quality={90} priority />
-                          </div>  
-                      </div>
-                  )}
-              )}
-              </div>
-              <Pagination numberPages={props.numberPages} /> 
+interface Blog {
+    frontmatter: {
+      id: number;
+      uid: number;
+      title: string;
+      date: string;
+      excerpt: string;
+    };
+    slug: string;
+  }
+  
+  interface BlogProps {
+    blogs: Blog[];
+  }
+
+const Blog = ({ blogs }: BlogProps) => {
+    return(
+        <div>
+            <h1>ブログページ</h1>
+            {blogs.map((blog:Blog,index:number) => (
+                <div key={index}>
+                    <h3>{blog.frontmatter.title}</h3>
+                    <p>{blog.frontmatter.date}</p>
+                    <Link href={`/blog/${blog.slug}`}>Read more</Link>
+                </div>
+            ))}
         </div>
-      </Layout>
-  )
+    )
 }
 
 export default Blog
 
-export async function getStaticProps() { 
-    const { orderedBlogs, numberPages } = await getAllBlogs() 
-
-    const limitedBlogs = orderedBlogs.slice(0, blogsPerPage)
-    
-    return {            
-        props: {
-            blogs: limitedBlogs,
-            numberPages: numberPages,
-        },      
-    }                   
+export const getStaticProps: GetStaticProps<BlogProps>  = async() => {
+    const blogs = ((context) => {
+        const keys = context.keys()
+        const values = keys.map(context)
+        const data = keys.map((key,index) => {
+            let slug = key.replace(/^.*[\\\/]/,'').slice(0,3)
+            const value :any = values[index];
+            const document = matter(value.default);
+            return {
+                frontmatter: document.data,
+                slug: slug
+            }
+        })
+        return data
+        
+    })(require.context('../data',true, /\.md$/))
+    return{
+        props:{
+            blogs: JSON.parse(JSON.stringify(blogs))
+        },
+    }
 }

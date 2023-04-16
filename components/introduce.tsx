@@ -2,7 +2,7 @@ import { Box, Typography, Stack } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 
-const Introduce = ({ imageSrc, imageAlt, text, heading  }) => {
+const Introduce = ({ imageSrc, imageAlt, introduce }) => {
   return (
 <Box display="flex" alignItems="center" gap={2}>
   <Box sx={{ flex: '1' }}>
@@ -12,9 +12,9 @@ const Introduce = ({ imageSrc, imageAlt, text, heading  }) => {
   </Box>
   <Box sx={{ flex: '1' }}>
     <Typography variant="h5" component="h2" gutterBottom>
-      {heading}
+      {introduce.heading}
     </Typography>
-    <Typography variant="body1">{text}</Typography>
+    <Typography variant="body1">{introduce.text}</Typography>
   </Box>
 </Box>
 

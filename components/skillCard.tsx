@@ -16,7 +16,7 @@ const SkillCard: React.FC<SkillProps> = ({ skillsData }) => {
   const selectedSkills = skillsData?.[tabIndex]?.skills ?? [];
 
 
-  const handleChangeTab = (event, newValue) => {
+  const handleChangeTab = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
   

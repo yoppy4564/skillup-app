@@ -25,6 +25,6 @@ const skillsData = [
     },
   ];
 
-export default function server(req, res){
+export default function server(req:any, res:any){
     res.status(200).json(skillsData)
 }
