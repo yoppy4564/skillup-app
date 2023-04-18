@@ -22,7 +22,7 @@ const Footer = () => (
       <Grid item sx={{ mb: 2 }}>
         <Stack direction="row" spacing={2}>
           <SnsLink src="/images/github.svg" href="https://github.com/yoppy4564/skillup-app" />                            
-          <SnsLink src="/images/linkedIn.png" href="https://www.linkedin.com/in/%E8%8A%B3%E7%AB%A0-%E5%B9%B3%E6%9D%BE-834b77268" />                            
+          <SnsLink src="/images/LinkedIn.png" href="https://www.linkedin.com/in/%E8%8A%B3%E7%AB%A0-%E5%B9%B3%E6%9D%BE-834b77268" />                            
           <SnsLink src="/images/twitter.svg" href="https://twitter.com/yoppy_engineer" />        
           <SnsLink src="/images/Wantedly.svg" href="https://www.wantedly.com/id/yoppy_engineer" />        
         </Stack>
