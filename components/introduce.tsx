@@ -1,8 +1,18 @@
 import { Box, Typography, Stack } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
+interface IntroduceProps{
+  imageSrc:string,
+  imageAlt:string,
+  introduce:Introduce
+}
 
-const Introduce = ({ imageSrc, imageAlt, introduce }) => {
+interface Introduce{
+  heading:string,
+  text:string
+}
+
+const Introduce = ({ imageSrc, imageAlt, introduce }:IntroduceProps) => {
   return (
 <Box display="flex" alignItems="center" gap={2}>
   <Box sx={{ flex: '1' }}>

@@ -4,6 +4,6 @@ const data = [
     { name: "Barack Obama", period: "2009-2017" },
 ]
 
-export default function server(req, res){
+export default function server(req:any, res:any){
     res.status(200).json(data)
 }

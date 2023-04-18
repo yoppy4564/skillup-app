@@ -1,55 +1,50 @@
-import React from 'react'
-import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
-import Layout from "../../components/layout"
-import Seo from "../../components/seo"
-import PrevNext from "../../components/prevNext"
-import { getAllBlogs, getSingleBlog } from "../../utils/mdQueries"
+import { GetStaticPaths, GetStaticProps } from "next"  
+import matter from "gray-matter"
 
-const SingleBlog = (props) => {
-    return (
-      <Layout>
-          <Seo title={props.frontmatter.title} description={props.frontmatter.excerpt} />
-          <div className="img-container">
-              <Image src={props.frontmatter.image} alt="blog-image" height={500} width={1000} priority />
-          </div>
-          <div className="wrapper">  
-              <div className="container">               
-                  <h1>{props.frontmatter.title}</h1>
-                  <p>{props.frontmatter.date}</p> 
-                  <ReactMarkdown>{props.markdownBody}</ReactMarkdown>
-              </div> 
-              <PrevNext prev={props.prev} next={props.next} />
-          </div>
-      </Layout> 
+interface StaticPath {
+    params: {
+      slug: string | undefined;
+    };
+    [key: string]: any;
+  }
+
+const SingleBlog = () => {
+    return(
+        <h1>記事ページ</h1>
     )
 }
 
 export default SingleBlog
 
-export async function getStaticPaths() {
-    const { orderedBlogs } = await getAllBlogs()
-    const paths = orderedBlogs.map((orderedBlog) => `/blog/${orderedBlog.slug}`)
+export const getStaticPaths:GetStaticPaths<StaticPath> = async() => {
+    const blogSlugs = ((context: __WebpackModuleApi.RequireContext) => {
+        console.log(context)
+        const keys = context.keys()
+        const data = keys.map((key:string,index:number) => {
+            let slug= key.replace(/^.*[\\\/]/,'').slice(0,-3)
+            return slug
+        })
+        return data
+    })(require.context('../../data',true, /\.md$/))
 
+    const paths = blogSlugs.map((blogSlug : string) => `/blog/${blogSlug}`)
+    console.log(paths)
     return {
-        paths: paths,  
-        fallback: false,
+        paths:paths,
+        fallback:false,
     }
+      
 }
 
-export async function getStaticProps(context) {
-    const { singleDocument } = await getSingleBlog(context)
-    
-    const { orderedBlogs } = await getAllBlogs()
-    const prev = orderedBlogs.filter(orderedBlog => orderedBlog.frontmatter.id === singleDocument.data.id - 1)
-    const next = orderedBlogs.filter(orderedBlog => orderedBlog.frontmatter.id === singleDocument.data.id + 1)
+export const getStaticProps:GetStaticProps = async(context :any) => {
+    const { slug } =context.params
+    const data = await import(`../../data/${slug}.md`)
+    const singleDocument = matter(data.default)
+    console.log(singleDocument)
+    console.log(context)
+    return{
+        props:{
 
-    return {
-        props: {
-            frontmatter: singleDocument.data,
-            markdownBody: singleDocument.content,
-            prev: prev,
-            next: next,
         }
     }
 }

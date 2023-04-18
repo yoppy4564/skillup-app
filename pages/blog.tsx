@@ -1,8 +1,9 @@
 import matter, {GrayMatterFile} from "gray-matter"
 import Link from "next/link"
 import { GetStaticProps } from "next";
+import Layout from "../components/layout";
 
-interface Blog {
+export interface Blog {
     frontmatter: {
       id: number;
       uid: number;
@@ -19,7 +20,7 @@ interface Blog {
 
 const Blog = ({ blogs }: BlogProps) => {
     return(
-        <div>
+        <Layout>
             <h1>ブログページ</h1>
             {blogs.map((blog:Blog,index:number) => (
                 <div key={index}>
@@ -28,7 +29,7 @@ const Blog = ({ blogs }: BlogProps) => {
                     <Link href={`/blog/${blog.slug}`}>Read more</Link>
                 </div>
             ))}
-        </div>
+        </Layout>
     )
 }
 
@@ -39,7 +40,7 @@ export const getStaticProps: GetStaticProps<BlogProps>  = async() => {
         const keys = context.keys()
         const values = keys.map(context)
         const data = keys.map((key,index) => {
-            let slug = key.replace(/^.*[\\\/]/,'').slice(0,3)
+            let slug = key.replace(/^.*[\\\/]/,'').slice(0,-3)
             const value :any = values[index];
             const document = matter(value.default);
             return {
