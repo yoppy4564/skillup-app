@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-const PrevNext =(props) => {
+
+const PrevNext =(props:any) => {
     return (
         <div className="pnWrapper">
             {0 < props.prev.length && 

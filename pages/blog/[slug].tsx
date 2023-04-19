@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next"  
-import matter from "gray-matter"
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Seo from "../../components/seo";
 import Layout from "../../components/layout";
+import { getAllBlogs, getSingleBlog } from "../../utils/mdQueries";
+import PrevNext from "../../components/prevNext"
 
 interface StaticPath {
     params: {
@@ -26,17 +27,8 @@ const SingleBlog = (props:any) => {
 export default SingleBlog
 
 export const getStaticPaths:GetStaticPaths<StaticPath> = async() => {
-    const blogSlugs = ((context: __WebpackModuleApi.RequireContext) => {
-        console.log(context)
-        const keys = context.keys()
-        const data = keys.map((key:string,index:number) => {
-            let slug= key.replace(/^.*[\\\/]/,'').slice(0,-3)
-            return slug
-        })
-        return data
-    })(require.context('../../data',true, /\.md$/))
-
-    const paths = blogSlugs.map((blogSlug : string) => `/blog/${blogSlug}`)
+    const { orderedBlogs } = await getAllBlogs()
+    const paths = orderedBlogs.map((orderedBlog : any) => `/blog/${orderedBlog.slug}`)
     return {
         paths:paths,
         fallback:false,
@@ -44,14 +36,18 @@ export const getStaticPaths:GetStaticPaths<StaticPath> = async() => {
       
 }
 
-export const getStaticProps:GetStaticProps = async(context :any) => {
-    const { slug } =context.params
-    const data = await import(`../../data/${slug}.md`)
-    const singleDocument = matter(data.default)
+export const getStaticProps = async(context :any) => {
+    const { singleDocument } = await getSingleBlog(context)
+    const { orderedBlogs } = await getAllBlogs()
+    const prev = orderedBlogs.filter((orderedBlog:any) => orderedBlog.frontmatter.id === singleDocument.data.id -1)
+    const next = orderedBlogs.filter((orderedBlog:any) => orderedBlog.frontmatter.id === singleDocument.data.id +1)
+    
     return{
         props:{
             frontmatter:singleDocument.data,
             markdownBody:singleDocument.content,
+            prev: prev,
+            next: next,
         }
     }
 }

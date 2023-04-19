@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const Pagination = (props) => {
+const Pagination = (props:any) => {
   return (
     <h2  className="paginationWrapper">
       {Array.from({ length: props.numberPages }, (_, i) => (
