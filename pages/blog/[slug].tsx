@@ -1,5 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next"  
 import matter from "gray-matter"
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Seo from "../../components/seo";
+import Layout from "../../components/layout";
 
 interface StaticPath {
     params: {
@@ -8,9 +11,15 @@ interface StaticPath {
     [key: string]: any;
   }
 
-const SingleBlog = () => {
+const SingleBlog = (props:any) => {
     return(
-        <h1>記事ページ</h1>
+        <Layout>
+            <div>
+                <h1>{props.frontmatter.title}</h1>
+                <p>{props.frontmatter.data}</p>
+                <ReactMarkdown>{props.markdownBody}</ReactMarkdown>
+            </div>
+        </Layout>
     )
 }
 
@@ -28,7 +37,6 @@ export const getStaticPaths:GetStaticPaths<StaticPath> = async() => {
     })(require.context('../../data',true, /\.md$/))
 
     const paths = blogSlugs.map((blogSlug : string) => `/blog/${blogSlug}`)
-    console.log(paths)
     return {
         paths:paths,
         fallback:false,
@@ -40,11 +48,10 @@ export const getStaticProps:GetStaticProps = async(context :any) => {
     const { slug } =context.params
     const data = await import(`../../data/${slug}.md`)
     const singleDocument = matter(data.default)
-    console.log(singleDocument)
-    console.log(context)
     return{
         props:{
-
+            frontmatter:singleDocument.data,
+            markdownBody:singleDocument.content,
         }
     }
 }
