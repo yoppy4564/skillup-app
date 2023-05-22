@@ -4,6 +4,7 @@ import Seo from "../../components/seo";
 import Layout from "../../components/layout";
 import { getAllBlogs, getSingleBlog } from "../../utils/mdQueries";
 import PrevNext from "../../components/prevNext"
+import { Blog } from "../../types/blogs";
 
 interface StaticPath {
     params: {
@@ -12,13 +13,13 @@ interface StaticPath {
     [key: string]: any;
   }
 
-const SingleBlog = (props:any) => {
+const SingleBlog = (props:Blog) => {
     return(
         <Layout>
             <div>
                 <h1>{props.frontmatter.title}</h1>
-                <p>{props.frontmatter.data}</p>
-                <ReactMarkdown>{props.markdownBody}</ReactMarkdown>
+                <p>{props.frontmatter.excerpt}</p>
+                <ReactMarkdown>{props.slug}</ReactMarkdown>
             </div>
         </Layout>
     )
@@ -45,7 +46,7 @@ export const getStaticProps = async(context :any) => {
     return{
         props:{
             frontmatter:singleDocument.data,
-            markdownBody:singleDocument.content,
+            slug:singleDocument.content,
             prev: prev,
             next: next,
         }

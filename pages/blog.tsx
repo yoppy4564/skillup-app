@@ -2,21 +2,9 @@ import Link from "next/link"
 import { GetStaticProps } from "next";
 import Layout from "../components/layout";
 import { getAllBlogs } from "../utils/mdQueries";
+import { BlogProps, Blog } from "../types/blogs";
 
-export interface Blog {
-    frontmatter: {
-      id: number;
-      uid: number;
-      title: string;
-      date: string;
-      excerpt: string;
-    };
-    slug: string;
-  }
-  
-  interface BlogProps {
-    blogs: Blog[];
-  }
+
 
 const Blog = ({ blogs }: BlogProps) => {
     return(

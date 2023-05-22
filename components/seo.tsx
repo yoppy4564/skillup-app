@@ -1,7 +1,12 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
-const Seo = (props:any) => {
+interface SeoProps {
+    title: string,
+    description: string
+}
+
+const Seo = (props:SeoProps) => {
     const router = useRouter()
     const baseUrl = "http://localhost:3000"
     const currentUrl = baseUrl + router.pathname

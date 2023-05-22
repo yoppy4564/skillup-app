@@ -1,4 +1,5 @@
 import matter from 'gray-matter'
+import Blog from '../pages/blog'
 
 export const blogsPerPage = 5
 
